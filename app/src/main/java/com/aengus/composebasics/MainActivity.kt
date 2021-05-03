@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
@@ -39,23 +40,25 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MyScreenContent(names:List<String> = listOf("Android", "there")) {
-    val count = remember { mutableStateOf(0)}
+fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
+    val count = remember { mutableStateOf(0) }
 
-    Column {
-        for(name in names) {
-            Greeting(name)
-            Divider(color = Color.Black)
+    Column(modifier = Modifier.fillMaxHeight()) {
+        Column(modifier = Modifier.weight(1f)) {
+            for (name in names) {
+                Greeting(name)
+                Divider(color = Color.Black)
+            }
         }
         Counter(count.value,
-        onCountChange = { newValue -> count.value = newValue})
+            onCountChange = { newValue -> count.value = newValue })
     }
 }
 
 @Composable
-fun Counter(count:Int, onCountChange:(Int)->Unit) {
-    Button(onClick = { onCountChange(count+1) }) {
-       Text(text = "I was click $count times")
+fun Counter(count: Int, onCountChange: (Int) -> Unit) {
+    Button(onClick = { onCountChange(count + 1) }) {
+        Text(text = "I was click $count times")
     }
 }
 
